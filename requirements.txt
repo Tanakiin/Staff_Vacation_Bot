@@ -1,0 +1,6 @@
+discord==1.7.3
+discord.py==1.7.3
+mysql-connector-python==8.0.28 
+pytz==2021.1
+discord-py-slash-command==3.0.3
+table2ascii==0.2.0
