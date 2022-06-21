@@ -6,13 +6,14 @@ slash = SlashCommand(client, sync_commands=True)
 import mysql.connector
 from datetime import date, timedelta, datetime, timezone
 from discord.ext.commands import UserNotFound
-from table2ascii import table2ascii as t2a, Alignment
+from table2ascii import table2ascii as t2a, PresetStyle, Alignment
+import re
 
 config = {
 'user': '',
 'password': '',
 'host': '',
-'port': '',
+'port': '3306',
 'database': '',
 'raise_on_warnings': True,}
 
@@ -108,6 +109,8 @@ addoption = [
 @slash.slash(name="add", description="Add a Staff member to the vacation list", options=addoption)
 @client.command(aliases=["a"])
 async def tableadd(ctx, member: discord.User, duration, *,reason):
+    if "<:" in reason and ">" in reason:
+        reason = re.sub('<.*?>', '', reason)
     string_unicode = member.name
     string_encode = string_unicode.encode("ascii", "ignore")
     name = string_encode.decode()
